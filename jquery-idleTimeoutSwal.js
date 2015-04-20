@@ -156,7 +156,7 @@
 
 		swal({
 		  title: 'Inactivty timeout',
-		  text: "Session will expire in "+ currentConfig.dialogDisplayLimit +" seconds.",
+		  text: "",
 		  type: "warning",
 		  showCancelButton: true,
 		  confirmButtonColor: "#DD6B55",
@@ -181,9 +181,6 @@
 		  }
 		});
 				
-	$(".sweet-alert p").html("Session will expire in <span id='dialogText-warning'>" + currentConfig.dialogDisplayLimit + "</span> seconds");
-	
-
       countdownDisplay();
 
       document.title = currentConfig.dialogTitle;
@@ -211,7 +208,7 @@
     };
 
     isDialogOpen = function () {
-      var dialogOpen = $("#idletimer_warning_dialog").is(":visible");
+      var dialogOpen = $(".sweet-alert").is(":visible");
 
       if (dialogOpen === true) {
         return true;
@@ -220,6 +217,7 @@
     };
 
     destroyWarningDialog = function () {
+    	$("span#dialogText-warning").remove();
 //      $("#idletimer_warning_dialog").dialog('destroy').remove();
       document.title = origTitle;
 
@@ -233,11 +231,12 @@
       var dialogDisplaySeconds = currentConfig.dialogDisplayLimit, mins, secs;
 
       remainingTimer = setInterval(function () {
-        mins = Math.floor(dialogDisplaySeconds / 60); // minutes
+//        mins = Math.floor(dialogDisplaySeconds / 60); // minutes
 //        if (mins < 10) { mins = '0' + mins; }
         secs = dialogDisplaySeconds // - (mins * 60); // seconds
  //       if (secs < 10) { secs = '0' + secs; }
-        $("span#dialogText-warning").html(secs);
+ 		$(".sweet-alert p").html("Session will expire in " + secs + " seconds");
+//        $("span#dialogText-warning").html(secs).show();
         dialogDisplaySeconds -= 1;
       }, 1000);
     };
