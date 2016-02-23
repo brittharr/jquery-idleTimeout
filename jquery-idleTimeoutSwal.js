@@ -154,33 +154,33 @@
     //----------- WARNING DIALOG FUNCTIONS --------------//
     openWarningDialog = function () {
 
-		swal({
-		  title: 'Inactivty timeout',
-		  text: "",
-		  type: "warning",
-		  showCancelButton: true,
-		  confirmButtonColor: "#DD6B55",
-		  confirmButtonText: "Refresh my session!",
-		  cancelButtonText: "Log me out",
-		  closeOnConfirm: false,
-		  closeOnCancel: false
-		},
-		function(isConfirm){
-		  if (isConfirm) {
-            stopDialogTimer();
-            startIdleTimer();		  	
-		    swal({
-		      title: "Session refreshed!", 
-		      text: "Your session has been refreshed", 
-		      type: "success",
-		      timer: 3000,
-		   });
+      swal({
+          title: currentConfig.dialogText,
+          text: "",
+          type: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#DD6B55",
+          confirmButtonText: currentConfig.dialogStayLoggedInButton,
+          cancelButtonText: currentConfig.dialogLogOutNowButton,
+          closeOnConfirm: false,
+          closeOnCancel: false
+        },
+        function(isConfirm){
+          if (isConfirm) {
+                stopDialogTimer();
+                startIdleTimer();
+            swal({
+              title: "Session refreshed!",
+              text: "Your session has been refreshed",
+              type: "success",
+              timer: 3000,
+           });
 
-		  } else {
-			    logoutUser();
-		  }
-		});
-				
+          } else {
+              logoutUser();
+          }
+      });
+
       countdownDisplay();
 
       document.title = currentConfig.dialogTitle;
@@ -217,7 +217,7 @@
     };
 
     destroyWarningDialog = function () {
-    	$("span#dialogText-warning").remove();
+      $("span#dialogText-warning").remove();
 //      $("#idletimer_warning_dialog").dialog('destroy').remove();
       document.title = origTitle;
 
@@ -235,7 +235,7 @@
 //        if (mins < 10) { mins = '0' + mins; }
         secs = dialogDisplaySeconds // - (mins * 60); // seconds
  //       if (secs < 10) { secs = '0' + secs; }
- 		$(".sweet-alert p").html("Session will expire in " + secs + " seconds");
+    $(".sweet-alert p").html("Session will expire in " + secs + " seconds");
 //        $("span#dialogText-warning").html(secs).show();
         dialogDisplaySeconds -= 1;
       }, 1000);
