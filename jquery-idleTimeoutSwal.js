@@ -52,6 +52,10 @@
       dialogStayLoggedInButton: 'Stay Logged In',
       dialogLogOutNowButton: 'Log Out Now',
 
+      dialogConfirm: true, // set to false for no confirmation alert
+      dialogConfirmTitle: 'Session refreshed!',
+      dialogConfirmText: 'Your session has been refreshed',
+
       // error message if https://github.com/marcuswestin/store.js not enabled
       errorAlertMessage: 'Please disable "Private Mode", or upgrade to a modern browser. Or perhaps a dependent file missing. Please see: https://github.com/marcuswestin/store.js',
 
@@ -162,7 +166,7 @@
           confirmButtonColor: "#DD6B55",
           confirmButtonText: currentConfig.dialogStayLoggedInButton,
           cancelButtonText: currentConfig.dialogLogOutNowButton,
-          closeOnConfirm: false,
+          closeOnConfirm: !currentConfig.dialogConfirm,
           closeOnCancel: false
         },
         function(isConfirm){
@@ -170,8 +174,8 @@
                 stopDialogTimer();
                 startIdleTimer();
             swal({
-              title: "Session refreshed!",
-              text: "Your session has been refreshed",
+              title: defaultConfig.dialogConfirmTitle,
+              text: defaultConfig.dialogConfirmText,
               type: "success",
               timer: 3000,
            });
